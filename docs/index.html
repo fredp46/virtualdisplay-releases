@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VirtualDisplay</title>
+  <meta name="description" content="A macOS menu-bar app that pushes a window to a headless virtual display and serves it over VNC, a browser viewer and MCP.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">For macOS 14 Sonoma and later</p>
+      <h1>VirtualDisplay</h1>
+      <p class="lede">
+        A menu-bar app that gives your Mac an extra, invisible screen. Push any window onto it,
+        then watch and control that window over VNC, in a browser, or from an AI agent,
+        without it cluttering your own desktop.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="#install">Install</a>
+        <a class="button" href="https://github.com/fredp46/virtualdisplay-releases/releases/latest">Download for Mac</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap">
+      <h2>What it does</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Push a window</h3>
+          <p>Press <kbd>⌃⌥⌘V</kbd> and the front window moves to the virtual display and fills it. <kbd>⌃⌥⌘R</kbd> brings it back to where it was.</p>
+        </article>
+        <article class="card">
+          <h3>Share a window</h3>
+          <p>Press <kbd>⌃⌥⌘S</kbd> to stream just one window while it stays on your desktop, marked with a purple outline so you know what viewers see.</p>
+        </article>
+        <article class="card">
+          <h3>Virtual Desktop Window</h3>
+          <p>Press <kbd>⌃⌥⌘D</kbd> to see the virtual display live in a window. Share it whole in Teams, Zoom or Meet as a clean, separate desktop.</p>
+        </article>
+        <article class="card">
+          <h3>VNC and web viewer</h3>
+          <p>A built-in VNC server on port 5901 and a browser viewer at <code>127.0.0.1:5902</code>. Remote clicks and keys go to the app without moving your cursor.</p>
+        </article>
+        <article class="card">
+          <h3>MCP server for AI agents</h3>
+          <p>Agents such as Claude Code can take screenshots, read the accessibility tree, click, type and pick menu items in the pushed window.</p>
+        </article>
+        <article class="card">
+          <h3>Encrypted remote access</h3>
+          <p>A WireGuard peer is built in, with an optional SSH server and web terminal. Reach your Mac from your other devices with no VPN profile or admin password.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap" id="install">
+      <h2>Install</h2>
+
+      <h3>With Homebrew (recommended)</h3>
+      <pre><code>brew install --cask fredp46/tap/virtualdisplay</code></pre>
+      <p>Update later with <code>brew upgrade --cask virtualdisplay</code>.</p>
+
+      <h3>Or download it</h3>
+      <ol>
+        <li>Download the latest <code>VirtualDisplay-&lt;version&gt;.zip</code> from the <a href="https://github.com/fredp46/virtualdisplay-releases/releases/latest">releases page</a>.</li>
+        <li>Unzip it and drag <strong>VirtualDisplay.app</strong> into your <strong>Applications</strong> folder.</li>
+        <li>Open it. Builds are signed and notarized by Apple, so it opens like any other app.</li>
+      </ol>
+
+      <h3>First launch</h3>
+      <ol>
+        <li>VirtualDisplay lives in the menu bar; it has no Dock icon.</li>
+        <li>Grant <strong>Accessibility</strong> (to move windows and send input) and <strong>Screen Recording</strong> (to capture the display) in <em>System Settings → Privacy &amp; Security</em>.</li>
+        <li>Quit and reopen VirtualDisplay so the permissions take effect.</li>
+        <li>Optionally, turn on <strong>Launch at Login</strong> from the menu.</li>
+      </ol>
+    </section>
+
+    <section class="wrap">
+      <h2>Get started</h2>
+      <ol>
+        <li>Click a window and press <kbd>⌃⌥⌘V</kbd> to push it to the virtual display.</li>
+        <li>Connect a VNC client to <code>vnc://127.0.0.1:5901</code> (default password <code>password</code>; change it from the menu), or open <strong>Web Viewer</strong> from the menu.</li>
+        <li>To let an AI agent drive the window, add the MCP server to Claude Code:
+          <pre><code>claude mcp add --transport http virtualdisplay http://127.0.0.1:5902/mcp</code></pre>
+        </li>
+        <li>To reach it from another device, choose <strong>Remote Access → Add Device…</strong> and scan the QR code with the WireGuard app.</li>
+      </ol>
+    </section>
+
+    <section class="wrap">
+      <h2>Good to know</h2>
+      <ul>
+        <li>Everything listens on <code>127.0.0.1</code> only. Other devices connect through the encrypted WireGuard tunnel.</li>
+        <li>VirtualDisplay uses Apple's private <code>CGVirtualDisplay</code> API, like DeskPad and BetterDisplay, so a future macOS release may break it, and it can't be sold through the App Store.</li>
+        <li>Quitting VirtualDisplay always returns the pushed window to your screen first.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <p>VirtualDisplay by Fred Powell · <a href="https://github.com/fredp46/virtualdisplay-releases/releases">Releases</a></p>
+  </footer>
+</body>
+</html>
